@@ -1,0 +1,14 @@
+{# app/Resources/views/blog/blog.html.twig #}
+{% extends 'MyBlogBundle:Myblog:index.html.twig' %}
+
+{% block title %}My cool blog posts{% endblock %}
+
+{% block body %}
+    {% for entry in blog %}
+      <h2><a href="/app_dev.php/blog/{{ entry.id }}">{{ entry.title }}</a></h2>
+      <p>{{ entry.content }}</p>
+      <p>Author <a href="#">{{ entry.author }}</a></p>
+      <p>Created Date : {{ entry.created_date|date('Y-m-d') }}</p>
+      <p>Modified Date : {{ entry.modified_date|date('Y-m-d') }}</p>
+    {% endfor %}
+{% endblock %}

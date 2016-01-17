@@ -1,0 +1,13 @@
+{# app/Resources/views/blog/form.html.twig #}
+{% extends 'MyBlogBundle:Myblog:index.html.twig' %}
+
+{% block title %}Add new blog{% endblock %}
+
+{% block body %}
+  {% for flash_message in app.session.flashbag.get('notice') %}
+    <div class="notices">{{ flash_message }}</div>
+  {% endfor %}
+  {{ form_start(form) }}
+  {{ form_widget(form) }}
+  {{ form_end(form) }}     
+{% endblock %}
