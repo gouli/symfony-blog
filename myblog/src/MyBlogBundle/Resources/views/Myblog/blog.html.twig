@@ -10,5 +10,6 @@
       <p>Author <a href="#">{{ entry.author }}</a></p>
       <p>Created Date : {{ entry.created_date|date('Y-m-d') }}</p>
       <p>Modified Date : {{ entry.modified_date|date('Y-m-d') }}</p>
+      <a href="/app_dev.php/edit/{{ entry.id }}">Edit</a>
     {% endfor %}
 {% endblock %}

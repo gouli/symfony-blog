@@ -8,6 +8,9 @@ blog:
 addblog:
     path:      "/addblog"
     defaults:  { _controller:MyBlogBundle:Blog:add }
+editblog:
+    path:     "/edit/{id}"
+    defaults:   { _controller:MyBlogBundle:Blog:edit }
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

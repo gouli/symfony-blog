@@ -89,4 +89,44 @@ class BlogController extends Controller
           'form' => $form->createView(),
       ));
     }
+    
+    public function editAction($id, Request $request)
+    {
+ 
+      $em = $this->getDoctrine()->getManager();
+      $blog_details = $em->getRepository('MyBlogBundle:Blog')->find($id);;
+
+      if (empty($blog_details)) {
+        throw $this->createNotFoundException(
+          'No Such Blog'
+        );
+      }
+
+      // Generate Edit form
+      
+      $form = $this->createFormBuilder($blog_details)
+      ->add('title', TextType::class, array('data' => $blog_details->getTitle()))
+      ->add('content', TextareaType::class, array('data' => $blog_details->getContent()))
+      ->add('author_id', IntegerType::class, array('data' => $blog_details->getAuthorId()))
+      ->add('save', SubmitType::class, array('label' => 'Update Blog'))
+      ->getform();
+    
+      $form->handleRequest($request);
+      
+      if ($form->isSubmitted() && $form->isValid()) {
+        $blog_details->setTitle($form->get('title')->getData());
+        $blog_details->setContent($form->get('content')->getData());
+        $blog_details->setAuthorId($form->get('author_id')->getData());
+        $blog_details->setModifiedDate(new \DateTime('now'));
+       
+        $em->flush();
+         $this->addFlash(
+          'notice',
+          'Your changes were saved!'
+        );    
+      }
+      return $this->render('MyBlogBundle:Myblog:form.html.twig', array(
+          'form' => $form->createView(),
+      ));
+    }
 }
